@@ -147,7 +147,7 @@ It's also important to understand that if a filter is changed on the Worksheet o
 
 This data was taken from https://www.census.gov/foreign-trade/statistics/country/index.html
 
-Specifically, the data was downloaded from the spreadsheet https://www.census.gov/foreign-trade/balance/country.xlsx however, this data was not ready to be consumed in its downloaded state and required some additional manipualtion before we could import it into Tableau with the resulting spreadsheet file [Monthly Goods and Service exports and imports.xlsx](Monthly%20Goods%20and%20Service%20exports%20and%20imports.xlsx)
+Specifically, the data was downloaded from the spreadsheet https://www.census.gov/foreign-trade/balance/country.xlsx however, this data was not ready to be consumed in its downloaded state and required some additional manipulation before we could import it into Tableau with the resulting spreadsheet file [Monthly Goods and Service exports and imports.xlsx](Monthly%20Goods%20and%20Service%20exports%20and%20imports.xlsx)
 
 In order to place the countries into their respective continents and subcontinents, the data from https://www.kaggle.com/datasets/andradaolteanu/country-mapping-iso-continent-region was used, specifically downloading the file named continents2.csv which was also manipulated to ensure proper lookups could be done within Excel resulting in the file [continents2.xlsx](continents2.xlsx).
 
