@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <base href="/">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>US trade partners exports and imports</title>
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+        <!-- Bootstrap -->
+        <!--
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        -->
+        
+        <!-- Extension Library - initally hosted on local computer, later on public website -->
+        <!--
+            Comment out the script referenced immediately below when testing outside of Tableau
+            For example, in VS-Code, right-click on this file's name in the Explorer panel and then
+            choose 'Open with Live Server' which will create an HTTP server running on port 5500 (by default)
+        -->
+        <script src="assets/lib/tableau.extensions.1.latest.min.js"></script>
+
+        <!-- D3.js library - use local copy to ensure stability -->
+        <!-- <script src="https://d3js.org/d3.v7.min.js"></script> -->
+        <script src="assets/d3.v7.min.js"></script>
+
+        <!-- Our extension code -->
+        <script type="module" src="assets/us-trade-partners/extension-code.js"></script> <!-- Reuires the use of "module" due to import statement for D3 code -->
+
+        <style>
+            table.trade-partners {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            table.trade-partners th {
+                font-weight: bold;
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding-left: 4px;
+                padding-right: 4px;
+            }
+            table.trade-partners td {
+                font-size: 8pt;
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding-left: 4px;
+                padding-right: 4px;
+            }
+            th.header1, th.header2, th.header3, th.header4 {
+                text-align: center;
+            }
+            th.header1 {
+                font-size: 16pt;
+            }
+            th.header2 {
+                font-size: 14pt;
+            }
+            th.header3 {
+                font-size: 12pt;
+            }
+            th.header4 {
+                font-size: 10pt;
+            }
+            td {
+                /* color:white; */
+                font-weight: bold;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container" class="container table-responsive" style="position:relative; width:2400px; height:2000px;">
+            <table id="loading" class="trable">
+                <tbody><tr><td>Loading extension... Please wait</td></tr></tbody>
+            </table>
+        </div>
+    </body>
+</html>
