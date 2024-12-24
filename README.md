@@ -93,7 +93,51 @@ where xxx can often be the same name which is equal tot he extension name. You m
 
 Once you have selected a way of serving up local files through your local http server, you are ready to create your .trex file. Very typically, the file will look something like this:  
 
-<div style="background-color: #2B2B2B; padding: 10px;">
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest manifest-version="0.1" xmlns="http://www.tableau.com/xml/extension_manifest">
+  <dashboard-extension id="com.YOURORG.extensions.EXTENSIONNAME" extension-version="1.0.0">
+    <default-locale>en_US</default-locale>
+    <name resource-id="name"/>
+    <description>Sankey</description>
+    <author name="YOUR NAME" email="username@yourdomain.com" organization="YOUR ORGANIZATION" website="https://www.yourdomain.com"/><!-- This is non-functional meta-data -->
+    <min-api-version>1.12</min-api-version><!-- May need to be modified is using a different version of the Tableau Extension API -->
+    <source-location>
+      <url>http://localhost:5500/tableau-dashboard-extension-d3js/application-name/index.html</url><!-- Make sure to point this to the server hosting your extension code -->
+    </source-location>
+    <icon>
+    <icon/>
+    <permissions>
+        <permission>full data</permission><!-- Required to read data from Tableau -->
+    </permisisons>
+  </dashboard-extension>
+  <resources>
+    <resource id="name">
+      <text locale="en_US">Extenion application name</text>
+    </resource>
+  </resources>
+</manifest>
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="background-color: #2B2B2B; padding: 10px; display:none;">
 <div><span style="color:#808080;">&lt;?xml version=</span><span style="color:#CE9178;">"1.0"</span> <span style="color:#808080;">encoding=</span><span style="color:#CE9178;">"utf-8"</span><span style="color:#808080;">?&gt;</span></div>
 <div><span style="color:#808080;">&lt;</span><span style="color:#569CD6;">manifest</span> <span style="color:7CDCF0;">manifest-version</span>="0.1" <span style="color:7CDCF0;">xmlns</span>="http://www.tableau.com/xml/extension_manifest"<span style="color:#808080;">&gt;</span></div>
 <div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">dashboard-extension</span> <span style="color:7CDCF0;">id</span>=<span style="background-color:rgba(255, 255, 0, 128); color:black;">"com.YOURORG.extensions.EXTENSIONNAME"</span> <span style="color:7CDCF0;">extension-version</span>=<span style="background-color:rgba(255, 255, 0, 128); color:black;">"1.0.0"</span><span style="color:#808080;">&gt;</span></div>
@@ -120,7 +164,7 @@ Once you have selected a way of serving up local files through your local http s
 </div>
 <br>
 
-To implement the template above into your own project, you just need to modify the sections highlighted in yellow.
+To implement the template above into your own project, you just need to modify the sections indicated above.
 
 ## Integrating your project code with Tableau
 
@@ -166,7 +210,7 @@ The goal behind this project was to implement the [Zoomable Circle Packing](http
 
 The animation immediately below shows the two largest circles representing two New York City boroughs where passenger pick-up occurred. Within these two circles, the next level indicates which zone within that borough the pick-up occurred. As we dive deeper, the next level of circles indicates the drop-off borough, while the next level of circles indicates the zone within the drop-off borough where the ride ended. You can zoom directly into any level simply by clicking accurately on the circle.
 
-![Zoomable Circles for NYC Yellow Cab rides](assets\images\NYC_YellowCab_data_animated.gif)
+![Zoomable Circles for NYC Yellow Cab rides](assets/images/NYC_YellowCab_data_animated.gif)
 
 This is a well-known publicly available data set that includes trip data for New York City Yellow Cabs for all complete years between 2009 and current (2023). For this example, we will focus on the years 2019 and 2020 because it will be interesting to compare pre-COVID-19 data against post-COVID-19 data and how COVID-19 affected the volume and nature of taxi rides in the city.
 
