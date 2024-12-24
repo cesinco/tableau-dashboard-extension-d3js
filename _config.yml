@@ -2,6 +2,5 @@ markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge
-  enable_coderay: true
   syntax_highlighter_opts:
     block: true
