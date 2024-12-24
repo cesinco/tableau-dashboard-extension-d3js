@@ -17,12 +17,12 @@ The following summary is described in greater detail below this section
 1. Make sure you have Tableau Desktop client installed on your workstation.
 2. Make sure you have a web developer tool such as Visual Studio Code (or others such as  JetBrains Webstorm) installed on your workstation.
 3. Make sure you are able to run a web server on your workstation that can host your preliminary development efforts.
-4. Create your visualization using your favorite web developer tool and test it as it's running on your local web server. You may find that it's initially easier to test just the visualization part of your project using statis data hard-coded into your files and only once you are confident that the visualization behaves as you want it, take the additional steps to connect it to your Tableau workbook which should still be launched on your workstation for now.
+4. Create your visualization using your favorite web developer tool and test it as it's running on your local web server. You may find that it's initially easier to test just the visualization part of your project using static data hard-coded into your files and only once you are confident that the visualization behaves as you want it, take the additional steps to connect it to your Tableau workbook which should still be launched on your workstation for now.
 5. After the visualization code is working, create the Tableau Dashboard Extension manifest file, saving it with a ".trex" extension, which will allow you to add your extension project to your Tableau file.
 6. Modify the other files in your project (typically .html and .js) to be able to connect to Tableau via your local web server rather than using static, hard-coded data.
 7. Eventually, you will move the files used to create your extension to a remote web server so that the extension can be accessed by other users not logged in to your workstation.
 8. For each new location of those resource files (.html, .js, or others), the .trex manifest file must be modified to indicate the new web server location of the index HTML file, instead of pointing to the index HTML file on your local web server.
-9. The final step is to publish your Tableau workbook to the Tableau server. This workbook will be referencing the resources (.html, .js, or others) that are now bing hosted on a remote web server.
+9. The final step is to publish your Tableau workbook to the Tableau server. However, the workbooks in this project will be referencing the resources (.html, .js, or others) that are hosted on the localhost web server.
 
 ## Background
 
@@ -54,7 +54,7 @@ Then search for the extension either by typing the first few letters of the name
 
 ![Live Server Extension Enabled](assets/images/live-server-extension-enabled.png)
 
-Once installed, the "Live Server" extensoin creates a context menu itme when right-clicking on an HTML file, allowing you to start an http server, typically running on port 5500 unless it is unable to bind to that port.
+Once installed, the "Live Server" extension creates a context menu item when right-clicking on an HTML file, allowing you to start an http server, typically running on port 5500 unless it is unable to bind to that port.
 
 ![Launch Live Server](assets/images/live-server.png)
 
@@ -85,11 +85,11 @@ However, if you are uploading your extension application into an existing site t
 
 A typical Tableau Dashboard Extension application will consist of 3 files, those being:
 
-xxx.trex
-xxx.html
+xxx.trex  
+xxx.html  
 xxx.js
 
-where xxx can often be the same name which is equal tot he extension name. You might also want to name your xxx.html file as index.html as this the typical naming convention for your index file on http servers. The xxx.jhs file will usually be used to communicate with Tableau via the Tableau Dashboard Extension API, and also contain the rendering code based on the D3 framework. Note that the xxx.trex file is required only for adding the extension application into your Tableau workbook - it is not needed for deployment to your web hosting site.
+where xxx can often be the same name which is equal to the extension name. You might also want to name your xxx.html file as index.html as this the typical naming convention for your index file on http servers. The xxx.js file will usually be used to communicate with Tableau via the Tableau Dashboard Extension API, and also contain the rendering code based on the D3 framework. Note that the xxx.trex file is required only for adding the extension application into your Tableau workbook - it is not needed for deployment to your web hosting site.
 
 Once you have selected a way of serving up local files through your local http server, you are ready to create your .trex file. Very typically, the file will look something like this:  
 
@@ -120,7 +120,7 @@ Once you have selected a way of serving up local files through your local http s
 </manifest>
 ```
 
-To implement the template above into your own project, you just need to modify the sections indicated above.
+To implement the template above into your own project, you just need to modify the sections indicated above (see [version with highights](assets/yellow_highlights.html)).
 
 ## Integrating your project code with Tableau
 
