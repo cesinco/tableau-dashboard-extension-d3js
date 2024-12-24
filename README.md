@@ -336,4 +336,4 @@ If you're more comfortable using a GUI to manage the SQLite database, you can [d
 
 Alternatively, you can use the Python notebook that creates the final (filtered) database used in the Tableau workbook named [merge_nyc_data_filtered.ipynb](merge_nyc_data_filtered.ipynb)
 
-This repository will contain neither the full database file `` nor the filtered database file `` since both exceed the Github limit of 100 Mb. However, the code to reproduce both database files is available should you wish to try it yourself, after downloading the source CSV files.
+This repository will contain neither the full database file `NYC_YellowCab_data.sqlite3` nor the filtered database file `NYC_YellowCab_selected_boroughs.sqlite3` since both exceed the Github limit of 100 Mb. However, the code to reproduce both database files is available should you wish to try it yourself, after downloading the source CSV files.
