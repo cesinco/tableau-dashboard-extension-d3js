@@ -91,50 +91,7 @@ xxx.js
 
 where xxx can often be the same name which is equal tot he extension name. You might also want to name your xxx.html file as index.html as this the typical naming convention for your index file on http servers. The xxx.jhs file will usually be used to communicate with Tableau via the Tableau Dashboard Extension API, and also contain the rendering code based on the D3 framework. Note that the xxx.trex file is required only for adding the extension application into your Tableau workbook - it is not needed for deployment to your web hosting site.
 
-Once you have selected a way of serving up local files through your local http server, you are ready to create your .trex file. Very typically, the file will look something like this:
-
-<div style="display:none;">
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<manifest manifest-version="0.1" xmlns="http://www.tableau.com/xml/extension_manifest">
-  <dashboard-extension id="com.YOURORG.extensions.EXTENSIONNAME" extension-version="1.0.0">
-    <default-locale>en_US</default-locale>
-    <name resource-id="name"/>
-    <description>Sankey</description>
-    <author name="YOUR NAME" email="username@yourdomain.com" organization="YOUR ORGANIZATION" website="https://www.yourdomain.com"/>
-    <min-api-version>1.11</min-api-version>
-    <source-location>
-      <url>http://localhost:5500/tableau-dashboard-extension-d3js/application-name/index.html</url>
-    </source-location>
-    <icon>
-    <icon/>
-    <permissions>
-        <permission>full data</permission><!-- Required to read data from Tableau -->
-    </permisisons>
-  </dashboard-extension>
-  <resources>
-    <resource id="name">
-      <text locale="en_US">Extenion application name</text>
-    </resource>
-  </resources>
-</manifest>
-```
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Once you have selected a way of serving up local files through your local http server, you are ready to create your .trex file. Very typically, the file will look something like this:  
 
 <div style="background-color: #2B2B2B; padding: 10px;">
 <div><span style="color:#808080;">&lt;?xml version=</span><span style="color:#CE9178;">"1.0"</span> <span style="color:#808080;">encoding=</span><span style="color:#CE9178;">"utf-8"</span><span style="color:#808080;">?&gt;</span></div>
@@ -162,23 +119,6 @@ Once you have selected a way of serving up local files through your local http s
 <div><span style="color:#808080;">&lt;/</span><span style="color:#569CD6;">manifest</span><span style="color:#808080;">&gt;</span></div>
 </div>
 <br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 To implement the template above into your own project, you just need to modify the sections highlighted in yellow.
 
