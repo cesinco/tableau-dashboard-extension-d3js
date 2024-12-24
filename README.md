@@ -119,6 +119,8 @@ Once you have selected a way of serving up local files through your local http s
 </manifest>
 ```
 
+To implement the template above into your own project, you just need to modify the sections highlighted in yellow.
+
 ## Integrating your project code with Tableau
 
 Tableau Dashboard Extensions, as the name implies, can only be added to a Tableau Dashboard, and not to a Worksheet, or Story. That said, follow these steps to integrate your extension project with your workbook.
@@ -145,15 +147,25 @@ It's also important to understand that if a filter is changed on the Worksheet o
 
 ### US Trade Partner - Exports and Imports
 
+The goal behind this project was to demonstrate how to create color scales similar to the functionality we have in Excel and to apply those color scales dynamically according to what data is displayed in Tableau after applying filters.
+
+The animation immediately below shows how the tabular output has a coor scale applied. In this case, each column is colored-scaled from red (lowest number, i.e. most negative) to green (highest number, i.e. least negative) where the numbers represent the balance of trade of the given country with the USA, subtracting imports from exports. As the table contents change, especially as we add or remove years, we can see that the colors that might have previously been a different color, change as they become closer or further from the minimum or maximum value in the column. Australia's number for March of 2020 is -1,699.067 (in millions of US$) - when the year 2023 is shown, that value is orange, indicating that it is worse than the average, but not the absolute worst WHen the 2023 year is removed, that sme value is now colored red, showing that of the available data, it is the lowest in the Australia column.
+
+![Balance of Trade Animation](assets/images/USA_balance_of_trade_with_partners_animated.gif)
+
 This data was taken from https://www.census.gov/foreign-trade/statistics/country/index.html
 
 Specifically, the data was downloaded from the spreadsheet https://www.census.gov/foreign-trade/balance/country.xlsx however, this data was not ready to be consumed in its downloaded state and required some additional manipulation before we could import it into Tableau with the resulting spreadsheet file [Monthly Goods and Service exports and imports.xlsx](Monthly%20Goods%20and%20Service%20exports%20and%20imports.xlsx)
 
 In order to place the countries into their respective continents and subcontinents, the data from https://www.kaggle.com/datasets/andradaolteanu/country-mapping-iso-continent-region was used, specifically downloading the file named continents2.csv which was also manipulated to ensure proper lookups could be done within Excel resulting in the file [continents2.xlsx](continents2.xlsx).
 
-The goal behind this data set was to demonstrate how to create color scales similar to the functionality we have in Excel and to apply those color scales dynamically according to what data is displayed in Tableau after applying filters.
-
 ### New York City Yellow Cab Trip Data
+
+The goal behind this project was to implement the [Zoomable Circle Packing](https://observablehq.com/@d3/zoomable-circle-packing) using some other data as a new kind of visualization for Tableau.
+
+The animation immediately below shows the two largest circles representing two New York City boroughs where passenger pick-up occurred. Within these two circles, the next level indicates which zone within that borough the pick-up occurred. As we dive deeper, the next level of circles indicates the drop-off borough, while the next level of circles indicates the zone within the drop-off borough where the ride ended. You can zoom directly into any level simply by clicking accurately on the circle.
+
+![Zoomable Circles for NYC Yellow Cab rides](assets\images\NYC_YellowCab_data_animated.gif)
 
 This is a well-known publicly available data set that includes trip data for New York City Yellow Cabs for all complete years between 2009 and current (2023). For this example, we will focus on the years 2019 and 2020 because it will be interesting to compare pre-COVID-19 data against post-COVID-19 data and how COVID-19 affected the volume and nature of taxi rides in the city.
 
@@ -165,7 +177,7 @@ In order to use this data within Tableau, we need to download the separate CSV f
 
 Tableau also requires a driver to be able to read data from a SQLite3 database. There is an open source available from http://www.ch-werner.de/sqliteodbc/ and for my specific installation, I used the [Windows 64 bit driver](http://www.ch-werner.de/sqliteodbc/sqliteodbc_w64.exe)
 
-In order to use the data from both tables, I created a Custom SQL query for connecting to the data, allowing me to perform a JOIN operation betweenthe two tables in the SQLite3 dtaabase, namely:
+In order to use the data from both tables, I created a Custom SQL query for connecting to the data, allowing me to perform a JOIN operation between the two tables in the SQLite3 database, namely:
 
 ```SQL
 SELECT
@@ -177,11 +189,11 @@ SELECT
     , trip.RatecodeID
     , trip.store_and_fwd_flag
     , trip.PULocationID
-    , lkp1.Borough AS PUBorough
-    , lkp1.Zone AS PUZone
+    , lkpp.Borough AS PUBorough
+    , lkpp.Zone AS PUZone
     , trip.DOLocationID
-    , lkp2.Borough AS DOBorough
-    , lkp2.Zone AS DOZone
+    , lkpd.Borough AS DOBorough
+    , lkpd.Zone AS DOZone
     , trip.payment_type
     , trip.fare_amount
     , trip.extra
@@ -192,10 +204,15 @@ SELECT
     , trip.total_amount
     , trip.congestion_surcharge
 FROM nyc_tripdata AS trip
-INNER JOIN taxi_zone_lookup AS lkp1
-    ON lkp1.LocationID = trip.PULocationID
-INNER JOIN taxi_zone_lookup AS lkp2
-    ON lkp2.LocationID = trip.DOLocationID
+INNER JOIN taxi_zone_lookup AS lkpp
+    ON lkpp.LocationID = trip.PULocationID
+INNER JOIN taxi_zone_lookup AS lkpd
+    ON lkpd.LocationID = trip.DOLocationID
+-- To reduce the size of this huge table, we can apply some filters
+-- for pickup and dropoff locations - there is still enough data to demo functionality
+-- Comment out the next two lines if you want the full set of data
+WHERE lkpp.Borough IN ('Brooklyn', 'Queens')
+AND lkpd.Borough IN ('Brooklyn', 'Queens', 'Manhattan', 'Bronx');
 ```
 
 Tableau reports that the driver used to connect to the SQLite3 database is missing some functionality which it documents as:
@@ -258,3 +275,64 @@ This function is unsupported: The date part named 'weekday' for the date functio
 This function is unsupported: The date part named 'year' for the date function: DATENAME(date_part, date, [start_of_week])
 This function is unsupported: UPPER(string) with parameter types 'string'
 ```
+
+To make things even more efficient, there's no reason to ask Tableau to do the JOINs for us each time the data is refreshed. Instead, we can create a table that has the JOINs already implemented. Assuming you have already installed the [SQLite3 command line interface](https://www.sqlite.org/download.html) - and in my specific case, I downloaded [the most recent - v. 3.47.2 - Windows 64 bit set of client tools](https://www.sqlite.org/2024/sqlite-tools-win-x64-3470200.zip), you can create another database and single table directly by copying the JOINed data from the first database you created using the `merge_nyc_data.ipynb` Python notebook, using those tools:
+
+First, export the relevant data to CSV format - we will save it in a file called `yellow_cab_selected_boroughs.csv`
+
+```sh
+C:\> sqlite3
+SQLite version 3.38.2 2022-03-26 13:51:10
+Enter ".help" for usage hints.
+sqlite> .headers on
+sqlite> .mode csv
+sqlite> .once yellow_cab_selected_boroughs.csv
+sqlite> SELECT
+      trip.VendorID
+    , trip.tpep_pickup_datetime
+    , trip.tpep_dropoff_datetime
+    , trip.passenger_count
+    , trip.trip_distance
+    , trip.RatecodeID
+    , trip.store_and_fwd_flag
+    , trip.PULocationID
+    , lkpp.Borough AS PUBorough
+    , lkpp.Zone AS PUZone
+    , trip.DOLocationID
+    , lkpd.Borough AS DOBorough
+    , lkpd.Zone AS DOZone
+    , trip.payment_type
+    , trip.fare_amount
+    , trip.extra
+    , trip.mta_tax
+    , trip.tip_amount
+    , trip.tolls_amount
+    , trip.improvement_surcharge
+    , trip.total_amount
+    , trip.congestion_surcharge
+FROM nyc_tripdata AS trip
+INNER JOIN taxi_zone_lookup AS lkpp
+    ON lkpp.LocationID = trip.PULocationID
+INNER JOIN taxi_zone_lookup AS lkpd
+    ON lkpd.LocationID = trip.DOLocationID
+WHERE lkpp.Borough IN ('Brooklyn', 'Queens')
+AND lkpd.Borough IN ('Brooklyn', 'Queens', 'Manhattan', 'Bronx');
+sqlite> ^Z
+```
+
+Next, import the resulting CSV into a new database contained in the file named `yellow_cab_selected_boroughs.sqlite`
+
+```sh
+C:\> sqlite3 yellow_cab_selected_boroughs.sqlite
+SQLite version 3.38.2 2022-03-26 13:51:10
+Enter ".help" for usage hints.
+sqlite> CREATE TABLE nyc_tripdata (VendorID INTEGER NOT NULL, tpep_pickup_datetime TIMESTAMP, tpep_dropoff_datetime TIMESTAMP, passenger_count INTEGER, trip_distance REAL, RatecodeID INTEGER, store_and_fwd_flag TEXT, PULocationID INTEGER, PUBorough TEXT, PUZone TEXT, DOLocationID INTEGER, DOBorough TEXT, DOZone TEXT, payment_type INTEGER, fare_amount REAL, extra REAL, mta_tax REAL, tip_amount REAL, tolls_amount REAL, improvement_surcharge REAL, total_amount REAL, congestion_surcharge REAL);
+sqlite> .import --csv --skip 1 yellow_cab_selected_boroughs.csv nyc_tripdata
+sqlite> ^Z
+```
+
+If you're more comfortable using a GUI to manage the SQLite database, you can [download](https://github.com/pawelsalawa/sqlitestudio/releases) the SQLiteStudio Installer or the SQLiteStudio Portable Edition (no installation required - simply unzip and run executable)
+
+Alternatively, you can use the Python notebook that creates the final (filtered) database used in the Tableau workbook named [merge_nyc_data_filtered.ipynb](merge_nyc_data_filtered.ipynb)
+
+This repository will contain neither the full database file `` nor the filtered database file `` since both exceed the Github limit of 100 Mb. However, the code to reproduce both database files is available should you wish to try it yourself, after downloading the source CSV files.

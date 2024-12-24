@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest manifest-version="0.1" xmlns="http://www.tableau.com/xml/extension_manifest">
+  <dashboard-extension id="com.cesinco.extensions.yellow-taxi-trips" extension-version="1.0.0">
+    <default-locale>en_US</default-locale>
+    <name resource-id="name"/>
+    <description>Sankey</description>
+    <author name="Cesar Mugnatto" email="cesinco@hotmail.com" organization="cesinco" website="https://www.yourdomain.com"/>
+    <min-api-version>1.11</min-api-version>
+    <source-location>
+      <url>http://localhost:5500/assets/yellow-taxi-trips/index.html</url>
+    </source-location>
+    <icon/>
+    <permissions>
+      <!-- Required to read data from Tableau -->
+      <permission>full data</permission>
+    </permissions>
+  </dashboard-extension>
+  <resources>
+    <resource id="name">
+      <text locale="en_US">Yellow Taxi New York City Trips</text>
+    </resource>
+  </resources>
+</manifest>
