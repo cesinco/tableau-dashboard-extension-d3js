@@ -81,7 +81,7 @@ ProjectRoot
         index.html
 ```
 
-However, if you are uploading your extension application into an existing site that you previously created for hosting other Tableau Dashboard Extension applications, youmay not need to upload the `d3.v7.min.js` file and the `lib` folder with its `tableau.extensions.*.js` files, so long as your path names reference these files correctly.
+However, if you are uploading your extension application into an existing site that you previously created for hosting other Tableau Dashboard Extension applications, you may not need to upload the `d3.v7.min.js` file and the `lib` folder with its `tableau.extensions.*.js` files, so long as your path names reference these files correctly.
 
 A typical Tableau Dashboard Extension application will consist of 3 files, those being:
 
@@ -93,6 +93,7 @@ where xxx can often be the same name which is equal tot he extension name. You m
 
 Once you have selected a way of serving up local files through your local http server, you are ready to create your .trex file. Very typically, the file will look something like this:
 
+<div style="display:none;">
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <manifest manifest-version="0.1" xmlns="http://www.tableau.com/xml/extension_manifest">
@@ -118,6 +119,66 @@ Once you have selected a way of serving up local files through your local http s
   </resources>
 </manifest>
 ```
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="background-color: #2B2B2B; padding: 10px;">
+<div><span style="color:#808080;">&lt;?xml version=</span><span style="color:#CE9178;">"1.0"</span> <span style="color:#808080;">encoding=</span><span style="color:#CE9178;">"utf-8"</span><span style="color:#808080;">?&gt;</span></div>
+<div><span style="color:#808080;">&lt;</span><span style="color:#569CD6;">manifest</span> <span style="color:7CDCF0;">manifest-version</span>="0.1" <span style="color:7CDCF0;">xmlns</span>="http://www.tableau.com/xml/extension_manifest"<span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">dashboard-extension</span> <span style="color:7CDCF0;">id</span>=<span style="background-color:rgba(255, 255, 0, 128); color:black;">"com.YOURORG.extensions.EXTENSIONNAME"</span> <span style="color:7CDCF0;">extension-version</span>=<span style="background-color:rgba(255, 255, 0, 128); color:black;">"1.0.0"</span><span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">default-locale</span><span style="color:#808080;">&gt;</span>en_US<span style="color:#808080;">&lt;</span>/<span style="color:#569CD6;">default-locale</span><span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">name</span> <span style="color:7CDCF0;">resource-id</span>=<span style="color:#CE9178;">"name"</span><span style="color:#808080;">/&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">description</span><span style="color:#808080;">&gt;</span><span style="background-color:rgba(255, 255, 0, 128); color:black;">Your Description</span><span style="color:#808080;">&lt;/</span><span style="color:#569CD6;">description</span><span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">author</span> <span style="color:7CDCF0;">name</span>=<span style="background-color:rgba(255, 255, 0, 128); color:black;">"YOUR NAME"</span> <span style="color:7CDCF0;">email</span>=<span style="background-color:rgba(255, 255, 0, 128); color:black;">"username@yourdomain.com"</span> <span style="color:7CDCF0;">organization</span>=<span style="background-color:rgba(255, 255, 0, 128); color:black;">"YOUR ORGANIZATION"</span> <span style="color:7CDCF0;">website</span>=<span style="background-color:rgba(255, 255, 0, 128); color:black;">"https://www.yourdomain.com"</span><span style="color:#808080;">/&gt;</span><span style="color:#6A9955;">&lt;!-- This is non-functional meta-data --&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">min-api-version</span><span style="color:#808080;">&gt;</span><span style="background-color:rgba(255, 255, 0, 128); color:black;">1.12</span><span style="color:#808080;">&lt;/</span><span style="color:#569CD6;">min-api-version</span><span style="color:#808080;">&gt;</span><span style="color:#6A9955;">&lt;!-- May need to be modified is using a different version of the Tableau Extension API --&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">source-location</span><span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">url</span><span style="color:#808080;">&gt;</span><span style="background-color:rgba(255, 255, 0, 128); color:black;">http://localhost:5500/tableau-dashboard-extension-d3js/application-name/index.html</span><span style="color:#808080;">&lt;/</span><span style="color:#569CD6;">url</span><span style="color:#808080;">&gt;</span><span style="color:#6A9955;">&lt;!-- Make sure to point this to the server hosting your extension code --&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;/</span><span style="color:#569CD6;">source-location</span><span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">icon</span><span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">icon</span><span style="color:#808080;">/&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">permissions</span><span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">permission</span><span style="color:#808080;">&gt;</span>full data<span style="color:#808080;">&lt;/</span><span style="color:#569CD6;">permission</span><span style="color:#808080;">&gt;</span><span style="color:#6A9955;">&lt;!-- Required to read data from Tableau --&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;/</span><span style="color:#569CD6;">permisisons</span><span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;/</span><span style="color:#569CD6;">dashboard-extension</span><span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">resources<span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">resource</span> <span style="color:7CDCF0;">id</span>=<span style="color:#CE9178;">"name"</span><span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;</span><span style="color:#569CD6;">text</span> <span style="color:7CDCF0;">locale</span>=<span style="color:#CE9178;">"en_US"</span><span style="color:#808080;">&gt;</span><span style="background-color:rgba(255, 255, 0, 128); color:black;">Extenion application name</span><span style="color:#808080;">&lt;/</span><span style="color:#569CD6;">text</span><span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;/</span><span style="color:#569CD6;">resource</span><span style="color:#808080;">&gt;</span></div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#808080;">&lt;/</span><span style="color:#569CD6;">resources</span><span style="color:#808080;">&gt;</span></div>
+<div><span style="color:#808080;">&lt;/</span><span style="color:#569CD6;">manifest</span><span style="color:#808080;">&gt;</span></div>
+</div>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 To implement the template above into your own project, you just need to modify the sections highlighted in yellow.
 
