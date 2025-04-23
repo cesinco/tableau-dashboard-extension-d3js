@@ -4,7 +4,7 @@ Documentation on how to set up Tableau Dashboard Extension API projects
 
 ## Architecture
 
-The way in which a Tableau Dashboard Extension works is that the Tableau tool you are using (either the desktop client, or in a final production environemnt - the Tableau server) uses a placeholder for the extension on a Tableau dashboard object (as opposed to a sheet, or a story).
+The way in which a Tableau Dashboard Extension works is that the Tableau tool you are using (either the desktop client, or in a final production environment - the Tableau server) uses a placeholder for the extension on a Tableau dashboard object (as opposed to a sheet, or a story).
 
 That placeholder is populated by importing a manifest file having the extension ".trex" (described further). The manifest file describes the properties of the extension including the web server where the index HTML file (also decribed further) is hosted, along with other properties such as the title, author, etc.
 
@@ -130,15 +130,15 @@ Tableau Dashboard Extensions, as the name implies, can only be added to a Tablea
 
 2. Once the Dashboard object is created, drag the Worksheet you wish to use onto the Dashboard's surface. If you intended to use filters in your extension, make sure the worksheet already has those filters showing - any filters not showing before dragging the worksheet object onto the surface will not show in the UI. You can always go back and add those later, but it's easier to do it when you're dropping the worksheet onto the dashboard's surface.
 
-3. Now, from the `Objects` menu on the left-side of the Dashboard navigator, click and drag the `Extension` item onto the Dashbaord surface. FOr the moment, it's not important where it is placed but typically, it will occuy the bottom of the dashboard.
+3. Now, from the `Objects` menu on the left-side of the Dashboard navigator, click and drag the `Extension` item onto the Dashbaord surface. For the moment, it's not important where it is placed but typically, it will occupy the bottom of the dashboard.
 
 4. In the `Add an Extenion` window that pops up, from the left-side navigator, click on `Access Local Extensions`.
 
-5. Browse to the location where your `.trex` manifest file is locatedand select that file. Note that if your manifest is pointing to localhost, you should make sure the http server on your local machine is running and able to serve up the `.html` file that your extension uses with the correct path name.
+5. Browse to the location where your `.trex` manifest file is locatedand select that file. Note that if your manifest is pointing to localhost, you should make sure the http server on your local machine is running and able to serve up the `.html` file that your extension uses with the correct path name and on the correct http port number.
 
-6. As a precaution, Tableau will warn you that you are loading an extension, showing you some of the properties of the extension including the host name, and ask you to approve the extnsion to be added. Click `OK`.
+6. As a precaution, Tableau will warn you that you are loading an extension, showing you some of the properties of the extension including the host name, and ask you to approve the extension to be added. Click `OK`.
 
-7. Something to keep in mind about how the Dashboard Extension works with Tableau - as stated previously, a Dashboard Extension can only be added to a Tableau Dashboard. It also means that any desrired real-time interaction must take place with other objects on the Dashboard. If you have written any event handlers to monitor changes on the Dashboard, those will only get trriggered if the expected changes occur ont he Dashboard object, not elsewhere in the workbook. Filters are a good example. If you want filters to work in real-time,  you need to make sure those filters are visible on the Dashboard and then add event handlers will for detecting changes, something like:
+7. Something to keep in mind about how the Dashboard Extension works with Tableau - as stated previously, a Dashboard Extension can only be added to a Tableau Dashboard. It also means that any desrired real-time interaction must take place with other objects on the Dashboard. If you have written any event handlers to monitor changes on the Dashboard, those will only get triggered if the expected changes occur ont he Dashboard object, not elsewhere in the workbook. Filters are a good example. If you want filters to work in real-time,  you need to make sure those filters are visible on the Dashboard and then add event handlers for detecting changes, something like:
 
 `worksheet.addEventListener(tableau.TableauEventType.FilterChanged, name_of_callback_funtion)`
 
@@ -150,7 +150,7 @@ It's also important to understand that if a filter is changed on the Worksheet o
 
 The goal behind this project was to demonstrate how to create color scales similar to the functionality we have in Excel and to apply those color scales dynamically according to what data is displayed in Tableau after applying filters.
 
-The animation immediately below shows how the tabular output has a coor scale applied. In this case, each column is colored-scaled from red (lowest number, i.e. most negative) to green (highest number, i.e. least negative) where the numbers represent the balance of trade of the given country with the USA, subtracting imports from exports. As the table contents change, especially as we add or remove years, we can see that the colors that might have previously been a different color, change as they become closer or further from the minimum or maximum value in the column. Australia's number for March of 2020 is -1,699.067 (in millions of US$) - when the year 2023 is shown, that value is orange, indicating that it is worse than the average, but not the absolute worst WHen the 2023 year is removed, that sme value is now colored red, showing that of the available data, it is the lowest in the Australia column.
+The animation immediately below shows how the tabular output has a coor scale applied. In this case, each column is colored-scaled from red (lowest number, i.e. most negative) to green (highest number, i.e. least negative) where the numbers represent the balance of trade of the given country with the USA, subtracting imports from exports. As the table contents change, especially as we add or remove years, we can see that the colors that might have previously been a different color, change as they become closer or further from the minimum or maximum value in the column. Australia's number for March of 2020 is -1,699.067 (in millions of US$) - when the year 2023 is shown, that value is orange, indicating that it is worse than the average, but not the absolute worst WHen the 2023 year is removed, that same value is now colored red, showing that of the available data, it is the lowest in the Australia column.
 
 ![Balance of Trade Animation](assets/images/USA_balance_of_trade_with_partners_animated.gif)
 
@@ -277,7 +277,7 @@ This function is unsupported: The date part named 'year' for the date function: 
 This function is unsupported: UPPER(string) with parameter types 'string'
 ```
 
-To make things even more efficient, there's no reason to ask Tableau to do the JOINs for us each time the data is refreshed. Instead, we can create a table that has the JOINs already implemented. Assuming you have already installed the [SQLite3 command line interface](https://www.sqlite.org/download.html) - and in my specific case, I downloaded [the most recent - v. 3.47.2 - Windows 64 bit set of client tools](https://www.sqlite.org/2024/sqlite-tools-win-x64-3470200.zip), you can create another database and single table directly by copying the JOINed data from the first database you created using the `merge_nyc_data.ipynb` Python notebook, using those tools:
+To make things even more efficient, there's no reason to ask Tableau to do the JOINs for us each time the data is refreshed. Instead, we can create a table that has the JOINs already implemented. Assuming you have already installed the [SQLite3 command line interface](https://www.sqlite.org/download.html) - and in my specific case, I downloaded [the most recent as of this writing - v. 3.47.2 - Windows 64 bit set of client tools](https://www.sqlite.org/2024/sqlite-tools-win-x64-3470200.zip), you can create another database and single table directly by copying the JOINed data from the first database you created using the `merge_nyc_data.ipynb` Python notebook, using those tools:
 
 First, export the relevant data to CSV format - we will save it in a file called `yellow_cab_selected_boroughs.csv`
 
@@ -337,3 +337,7 @@ If you're more comfortable using a GUI to manage the SQLite database, you can [d
 Alternatively, you can use the Python notebook that creates the final (filtered) database used in the Tableau workbook named [merge_nyc_data_filtered.ipynb](merge_nyc_data_filtered.ipynb)
 
 This repository will contain neither the full database file `NYC_YellowCab_data.sqlite3` nor the filtered database file `NYC_YellowCab_selected_boroughs.sqlite3` since both exceed the Github limit of 100 Mb. However, the code to reproduce both database files is available should you wish to try it yourself, after downloading the source CSV files.
+
+## Closing Remarks
+
+I hope this repository will be of help to other Tableau developers who would like to add some pizzazz to their presentations that might otherwise be impossible to do with native Tableau functionality. Feel free to reach out to me on LinkedIn at [https://www.linkedin.com/in/cesarmugnatto/](https://www.linkedin.com/in/cesarmugnatto/) if you have any suggestions, or questions about this work, or any other comments of interest.
