@@ -26,7 +26,7 @@ The following summary is described in greater detail below this section
 
 ## Background
 
-Typically, you would create a Tableau Dashboard Extension to address a shortcoming in Tableau's visualization capabilities. For example, using the D3.js framework, you could create some of the visualizations that can be seen in the [D3.js gallery](https://observablehq.com/@d3/gallery) or [alternate gallery](https://d3-graph-gallery.com). For the sake of this example, the assumption is that you eill be using D3.js as the framework to create custom visualziations.
+Typically, you would create a Tableau Dashboard Extension to address a shortcoming in Tableau's visualization capabilities. For example, using the D3.js framework, you could create some of the visualizations that can be seen in the [D3.js gallery](https://observablehq.com/@d3/gallery) or [alternate gallery](https://d3-graph-gallery.com). For the sake of this example, the assumption is that you eill be using D3.js as the framework to create custom visualizations.
 
 In order to create a Tableau Dashboard extension you will make use of the [Tableau Dashboard Extensions API](https://tableau.github.io/extensions-api) whose version as of this writing is [1.12](https://github.com/tableau/extensions-api/tree/main/lib)
 
