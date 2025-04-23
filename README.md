@@ -340,4 +340,6 @@ This repository will contain neither the full database file `NYC_YellowCab_data.
 
 ## Closing Remarks
 
+The full repository is available at [https://github.com/cesarmugnatto/tableau-dashboard-extension-d3js](https://github.com/cesinco/tableau-dashboard-extension-d3js)
+
 I hope this repository will be of help to other Tableau developers who would like to add some pizzazz to their presentations that might otherwise be impossible to do with native Tableau functionality. Feel free to reach out to me on LinkedIn at [https://www.linkedin.com/in/cesarmugnatto/](https://www.linkedin.com/in/cesarmugnatto/) if you have any suggestions, or questions about this work, or any other comments of interest.
